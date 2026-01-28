@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Download My App</title>
+
+<style>
+body{
+  background:#0b1220;
+  color:white;
+  font-family:Arial;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  height:100vh;
+}
+
+button{
+  padding:15px 30px;
+  font-size:18px;
+  border:none;
+  border-radius:30px;
+  cursor:pointer;
+  background:#4da3ff;
+  color:white;
+}
+
+.loader{
+  width:80px;
+  height:80px;
+  border:8px solid #2c2c2c;
+  border-top:8px solid #4da3ff;
+  border-radius:50%;
+  animation:spin 1s linear infinite;
+  display:none;
+  margin-top:20px;
+}
+
+@keyframes spin{
+  0%{transform:rotate(0deg);}
+  100%{transform:rotate(360deg);}
+}
+
+.popup{
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="popup">
+  <button onclick="startDownload()">Download your program</button>
+  <div class="loader" id="loader"></div>
+  <p id="text"></p>
+</div>
+
+<audio id="startSound" src="start.mp3"></audio>
+<audio id="cancelSound" src="cancel.mp3"></audio>
+
+<script>
+function startDownload(){
+  document.getElementById("loader").style.display="block";
+  document.getElementById("text").innerText="Your download will start in 3...";
+  document.getElementById("startSound").play();
+
+  let count = 3;
+  let timer = setInterval(()=>{
+    count--;
+    if(count > 0){
+      document.getElementById("text").innerText =
+      "Your download will start in " + count + "...";
+    }else{
+      clearInterval(timer);
+      window.location.href = "download/app.apk";
+    }
+  },1000);
+}
+</script>
+
+</body>
+</html>
